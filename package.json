@@ -13,7 +13,7 @@
     "url": "git+ssh://git@github.com/yin-ol/bid.mdcloud.git"
   },
   "author": "https://github.com/yin-ol/",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/yin-ol/Joinchain-TextMark-Plugin/issues"
   },
