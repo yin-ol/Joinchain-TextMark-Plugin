@@ -1,3 +1,5 @@
+
+const { VueLoaderPlugin } = require("vue-loader")
 module.exports = {
     mode: 'development',
     entry: {
@@ -37,6 +39,10 @@ module.exports = {
                     },
                 ],
             },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            }
         ]
     },
     devServer: {
@@ -57,4 +63,7 @@ module.exports = {
             'Access-Control-Allow-Origin': '*',
         }
     },
+    plugins: [
+        new VueLoaderPlugin(),
+    ]
 }

@@ -1,16 +1,39 @@
+import { reactive, createApp } from "vue"
+import FixedMenu from "./FixedMenu.vue"
+import { bindLinesWrapper, bindNessDom } from "./lib/dom";
 function main() {
+    // 重复运行判断，主要是防止开发插件和测试用户脚本混乱
     if (unsafeWindow.tmRun) {
+        console.warn("已阻止重复运行脚本！请检查是否开启了多个脚本");
         return;
     }
     unsafeWindow.tmRun = true
+    // 插入样式
 
-    // let detail = document.querySelector(".detail-wrapper")
-    // console.log(detail);
-    addEventListener('load', onload)
-
+    // 等待加载完成
+    addEventListener('load', init)
+    let loopCount = 0
+    let loopId = setInterval(function name(params) {
+        if(loopCount++>30) {
+            clearInterval(loopId)
+        }
+        if(bindNessDom()) {
+            init()
+            clearInterval(loopId)
+        }
+    }, 1000)
 }
 
-function onload(e) {
+function init() {
+    createFixedWrapper()
+    // 绑定页面
+    bindLinesWrapper()
+    // 创建悬浮菜单
+    createFixedMenu()
+    disableUeditor()
+}
+
+function createFixedWrapper() {
     let detailWrapper = document.querySelector(".detail-wrapper")
     let listWrappers = document.querySelectorAll(".detail-wrapper>.list")
     let btnWrapper = document.querySelector(".detail-wrapper .btn-wrapper")
@@ -24,26 +47,20 @@ function onload(e) {
         let inputList = document.querySelectorAll(".list input[placeholder]")
         for (let i = 0; i < inputList.length; i++) {
             let node = inputList[i]
-            if (node.value.length == 0) {
+            if (!node.value || node.value.length == 0) {
                 node.value = "-"
+                node.dispatchEvent(new Event('input'))
             }
         }
     })
 
-    newWrapper.className = "fixed"
+    newWrapper.className = "fixed_new_panel"
     for (var i = 0; i < listWrappers.length; i++) {
         newWrapper.appendChild(listWrappers[i])
     }
 
     newWrapper.appendChild(btnWrapper)
     detailWrapper.appendChild(newWrapper)
-    newWrapper.style.position = "fixed"
-    newWrapper.style.zIndex = 10
-    newWrapper.style.left = 0
-    newWrapper.style.right = 0
-    newWrapper.style.bottom = 0
-    newWrapper.style.backgroundColor = "rgb(224 224 224 / 85%)"
-    newWrapper.style.padding = "15px"
     detailWrapper.style.paddingBottom = `${newWrapper.clientHeight}px`
     // 自动移除修改定位影响的弹窗遮罩
     document.body.addEventListener("DOMNodeInserted", function (e) {
@@ -52,8 +69,6 @@ function onload(e) {
         }
 
     })
-
-    disableUeditor()
 }
 // 找到富文本编辑器并且禁止编辑
 function disableUeditor() {
@@ -62,6 +77,15 @@ function disableUeditor() {
     ueditor.ready(function () {
         ueditor.setDisabled()
     })
+}
+
+function createFixedMenu() {
+    const menuNode = document.createElement("div")
+    menuNode.id = "fixed_menu"
+    document.body.appendChild(menuNode)
+    let app = createApp(FixedMenu)
+    app.mount(menuNode)
+
 }
 
 main()
