@@ -8,6 +8,7 @@
 
 
             <li><button type="button">🔧</button></li>
+            <li><button type="button">🗑️</button></li>
             <li><button type="button" @click="addTab">➕</button></li>
             <li><button type="button" :disabled="activeTab <= 0 || activeTab > lineMap.length"
                     @click="deleteTab(activeTab)">➖</button></li>

@@ -32,14 +32,14 @@ export function insertCss(css) {
     }
 }
 // 查找出基础的必要的节点
-export function bindNessDom() {
+export function findNessDom() {
     detailWrapper = document.querySelector(".detail-wrapper")
     listWrappers = document.querySelectorAll(".detail-wrapper>.list")
     btnWrapper = document.querySelector(".detail-wrapper .btn-wrapper")
     // 按钮行
     ctrlBtnWrapper = document.querySelector(".list .name")
     // UE: onload
-    return window.UE && detailWrapper && listWrappers && listWrappers.length > 0 && btnWrapper && ctrlBtnWrapper && addButton && detailWrapper && copyButton
+    return unsafeWindow.UE && detailWrapper && listWrappers && listWrappers.length > 0 && btnWrapper && ctrlBtnWrapper && addButton && detailWrapper && copyButton
 }
 
 export function bindLinesWrapper() {

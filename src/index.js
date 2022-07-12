@@ -1,6 +1,6 @@
 import { reactive, createApp } from "vue"
 import FixedMenu from "./FixedMenu.vue"
-import { bindLinesWrapper, bindNessDom } from "./lib/dom";
+import { bindLinesWrapper, findNessDom } from "./lib/dom";
 function main() {
     // 重复运行判断，主要是防止开发插件和测试用户脚本混乱
     if (unsafeWindow.tmRun) {
@@ -11,27 +11,24 @@ function main() {
     // 插入样式
 
     // 等待加载完成
-    addEventListener('load', init)
     let loopCount = 0
     let loopId = setInterval(function name(params) {
-        if(loopCount++>30) {
+        if (loopCount++ > 30) {
             clearInterval(loopId)
+            console.error("找不到页面特征");
         }
-        if(bindNessDom()) {
-            init()
+        if (findNessDom()) {
+            createFixedWrapper()
+            // 绑定页面
+            bindLinesWrapper()
+            // 创建悬浮菜单
+            createFixedMenu()
+            disableUeditor()
             clearInterval(loopId)
         }
     }, 1000)
 }
 
-function init() {
-    createFixedWrapper()
-    // 绑定页面
-    bindLinesWrapper()
-    // 创建悬浮菜单
-    createFixedMenu()
-    disableUeditor()
-}
 
 function createFixedWrapper() {
     let detailWrapper = document.querySelector(".detail-wrapper")
