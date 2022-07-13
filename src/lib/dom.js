@@ -2,8 +2,9 @@ import { reactive, watch } from "vue";
 import { LineModel } from "./type";
 export var lineModels = []
 export var linesWrapperDom = document.body
-export var addButton = document.body
-export var copyButton = document.body
+export var addButton = null
+export var copyButton = null
+export var saveButton = null
 // 最顶级
 export var detailWrapper = null
 // 多个list
@@ -39,13 +40,14 @@ export function findNessDom() {
     // 按钮行
     ctrlBtnWrapper = document.querySelector(".list .name")
     // UE: onload
-    return unsafeWindow.UE && detailWrapper && listWrappers && listWrappers.length > 0 && btnWrapper && ctrlBtnWrapper && addButton && detailWrapper && copyButton
+    return unsafeWindow.UE && detailWrapper && listWrappers && listWrappers.length > 0 && btnWrapper && ctrlBtnWrapper
 }
 
 export function bindLinesWrapper() {
     lineModels = reactive([])
     addButton = ctrlBtnWrapper.querySelector(".el-button--primary.text-yellow")
     copyButton = ctrlBtnWrapper.querySelector(".el-button--success.text-yellow")
+    saveButton = btnWrapper.querySelector(".btn.el-button--primary")
     // 监听数据行添加
     linesWrapperDom = document.querySelector(".detail-wrapper .unit_list");
     linesWrapperDom.addEventListener("DOMNodeInserted", (e) => {

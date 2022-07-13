@@ -7,14 +7,14 @@
             </li>
 
 
-            <li><button type="button">🔧</button></li>
-            <li><button type="button">🗑️</button></li>
-            <li><button type="button" @click="addTab">➕</button></li>
+            <li><button type="button" title="设置">🛠️</button></li>
+            <li><button type="button" title="模板和数据处理" @click="activeTab = 0">📝</button></li>
+            <li><button type="button" @click="addTab" title="添加">➕</button></li>
             <li><button type="button" :disabled="activeTab <= 0 || activeTab > lineMap.length"
-                    @click="deleteTab(activeTab)">➖</button></li>
+                    @click="deleteTab(activeTab)" title="删除">➖</button></li>
             <li v-for="line, index in lines">
                 <button type="button" @click="activeTab = lines.length - index"
-                    :class="{ act: activeTab == lines.length - index }">
+                    :class="{ act: activeTab == lines.length - index }" :title="`第${lines.length - index}页`">
                     {{ lines.length - index }}
                 </button>
             </li>

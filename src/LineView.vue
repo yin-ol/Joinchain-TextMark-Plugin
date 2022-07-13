@@ -20,12 +20,12 @@
     <hr>
     <div>
         <button type="button" @click="checkAndFill">检查校验</button>
-        <button type="button">保存</button>
+        <button type="button" @click="clickSaveBtn">保存</button>
     </div>
 </template>
 <script>
 import { computed } from '@vue/reactivity';
-import { lineModels, saveInputValue } from './lib/dom';
+import { saveButton, lineModels, saveInputValue } from './lib/dom';
 import { keys } from './lib/type';
 
 export default {
@@ -67,6 +67,9 @@ export default {
                 })
             }
 
+        },
+        clickSaveBtn() {
+            saveButton.click()
         },
         // 修改新表单内容
         setValueByKey(key, value) {

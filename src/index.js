@@ -13,9 +13,10 @@ function main() {
     // 等待加载完成
     let loopCount = 0
     let loopId = setInterval(function name(params) {
-        if (loopCount++ > 30) {
+        if (loopCount++ > 10) {
             clearInterval(loopId)
-            console.error("找不到页面特征");
+            alert("等待页面加载超时，即将自动刷新页面")
+            window.location.reload()
         }
         if (findNessDom()) {
             createFixedWrapper()
