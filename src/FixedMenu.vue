@@ -3,11 +3,11 @@
     <div class="panel" v-else>
         <ul class="buttons">
             <li>
-                <button type="button" @click="toggleSwitch">❌</button>
+                <button type="button" @click="toggleSwitch" title="缩小辅助面板">❌</button>
             </li>
 
 
-            <li><button type="button" title="设置">🛠️</button></li>
+            <li><button type="button" title="设置" @click="activeTab = -1">🛠️</button></li>
             <li><button type="button" title="模板和数据处理" @click="activeTab = 0">📝</button></li>
             <li><button type="button" @click="addTab" title="添加">➕</button></li>
             <li><button type="button" :disabled="activeTab <= 0 || activeTab > lineMap.length"

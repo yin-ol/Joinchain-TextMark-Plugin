@@ -96,16 +96,6 @@ export function addLine(lineDom) {
         watch(inputModel, function() {
             saveInputValue(inputModel)
         })
-        // const observer = new MutationObserver((records) => {
-        //     console.log(records);
-        //     records.forEach((record) => {
-        //         if (record.target == input && record.fetchsuggestions) {
-        //             model.value = input.value
-        //             console.log(model);
-        //         }
-        //     })
-        // });
-        // observer.observe(input, osOption)
     });
 }
 // 根据数据更新原表单
