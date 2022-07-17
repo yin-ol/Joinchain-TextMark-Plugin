@@ -27,7 +27,6 @@ export function insertCss(css) {
         if (heads.length > 0) {
             heads[0].appendChild(node);
         } else {
-            // no head yet, stick it whereever
             document.documentElement.appendChild(node);
         }
     }

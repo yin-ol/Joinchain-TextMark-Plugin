@@ -12,9 +12,11 @@
         <tr v-for="ipModel, key in lineModels[index]">
             <td>{{ key }}</td>
             <td>
-                <input type="text" :value="ipModel.value" v-on:input="onInput($event, ipModel)" />
+                <input type="text" v-model="ipModel.value" v-on:input="onInput($event, ipModel)" />
             </td>
-            <td><button @click="fillAllValueByKey(ipModel.key, ipModel.value)">批量</button></td>
+            <td>
+                <button @click="fillAllValueByKey(ipModel.key, ipModel.value)">批量</button>
+            </td>
         </tr>
     </table>
     <hr title="单页">
@@ -34,7 +36,9 @@ export default {
         index: Number
     },
     setup() {
+        let aa = "sfd"
         return {
+            aa,
             lineModels,
         }
     },
@@ -108,14 +112,12 @@ export default {
 }
 </script>
 <style scoped="true">
-/* .line {
-    display: flex;
-    flex-direction: row;
-}
-.line input{
-    flex-grow: 1;
- } */
+
 table {
     padding: 6px;
+}
+
+td select {
+    float: left;
 }
 </style>

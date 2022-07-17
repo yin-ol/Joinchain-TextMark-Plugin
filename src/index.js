@@ -1,6 +1,7 @@
 import { reactive, createApp } from "vue"
 import FixedMenu from "./FixedMenu.vue"
 import { bindLinesWrapper, findNessDom } from "./lib/dom";
+import { hookAjax } from "./js/ajax";
 function main() {
     // 重复运行判断，主要是防止开发插件和测试用户脚本混乱
     if (unsafeWindow.tmRun) {
@@ -9,7 +10,8 @@ function main() {
     }
     unsafeWindow.tmRun = true
     // 插入样式
-
+    // 拦截ajax
+    hookAjax()
     // 等待加载完成
     let loopCount = 0
     let loopId = setInterval(function name(params) {
@@ -83,7 +85,6 @@ function createFixedMenu() {
     document.body.appendChild(menuNode)
     let app = createApp(FixedMenu)
     app.mount(menuNode)
-
 }
 
 main()
